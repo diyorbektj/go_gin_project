@@ -2,8 +2,11 @@ package main
 
 import (
 	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"golang_app/config"
 	"golang_app/controller"
+	docs "golang_app/docs"
 	"golang_app/middleware"
 	"golang_app/repository"
 	"golang_app/service"
@@ -20,10 +23,17 @@ var (
 	userController controller.UserController = controller.NewUserController(userService, jwtService)
 )
 
+// @title           Gin Book Service
+// @version         1.0
+
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
 func main() {
 	defer config.CloseDatabaseConnection(db)
 	r := gin.Default()
-
+	docs.SwaggerInfo.BasePath = "/api/"
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	api := r.Group("api")
 	{
 		authRoute := api.Group("auth")
@@ -36,7 +46,7 @@ func main() {
 			userRoute.GET("/profile", userController.Profile)
 		}
 	}
-	err := r.Run()
+	err := r.Run(":8081")
 	if err != nil {
 		return
 	}
