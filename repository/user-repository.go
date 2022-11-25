@@ -8,18 +8,18 @@ import (
 	"gorm.io/gorm"
 )
 
-type UserRepository interface{
+type UserRepository interface {
 	InsertUser(user entity.User) entity.User
 	UpdateUser(user entity.User) entity.User
 	VerifyCredential(email string, password string) interface{}
 	IsDuplicateEmail(email string) (tx *gorm.DB)
 	FindByEmail(email string) entity.User
+	ProfileUser(id string) entity.User
 }
 
 type userConnection struct {
 	connection *gorm.DB
 }
-
 
 func NewUserRepository(db *gorm.DB) UserRepository {
 	return &userConnection{
@@ -27,7 +27,7 @@ func NewUserRepository(db *gorm.DB) UserRepository {
 	}
 }
 
-func (db *userConnection) InsertUser(user entity.User) entity.User{
+func (db *userConnection) InsertUser(user entity.User) entity.User {
 	user.Password = hashAndSalt([]byte(user.Password))
 	db.connection.Save(&user)
 	return user
@@ -72,4 +72,10 @@ func hashAndSalt(pwd []byte) string {
 		panic("Failed to hash a password")
 	}
 	return string(hash)
+}
+
+func (db *userConnection) ProfileUser(userID string) entity.User {
+	var user entity.User
+	db.connection.Find(&user, userID)
+	return user
 }
