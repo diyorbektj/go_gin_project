@@ -13,6 +13,7 @@ type UserRepository interface{
 	UpdateUser(user entity.User) entity.User
 	VerifyCredential(email string, password string) interface{}
 	IsDuplicateEmail(email string) (tx *gorm.DB)
+	FindByEmail(email string) entity.User
 }
 
 type userConnection struct {
@@ -56,6 +57,12 @@ func (db *userConnection) VerifyCredential(email string, password string) interf
 		return user
 	}
 	return nil
+}
+
+func (db *userConnection) FindByEmail(email string) entity.User {
+	var user entity.User
+	db.connection.Where("email=?", email).Take(&user)
+	return user
 }
 
 func hashAndSalt(pwd []byte) string {
