@@ -3,10 +3,10 @@ package config
 import (
 	"fmt"
 	"github.com/joho/godotenv"
+	"golang_app/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"os"
-	"golang_app/entity"
 )
 
 func SetupDatabaseConnection() *gorm.DB {

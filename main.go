@@ -16,6 +16,7 @@ var (
 	userService    service.UserService       = service.NewUserService(userRepository)
 	authService    service.AuthService       = service.NewAuthService(userRepository)
 	authController controller.AuthController = controller.NewAuthController(authService, jwtService)
+	userController controller.UserController = controller.NewUserController(userService, jwtService)
 )
 
 func main() {
@@ -29,6 +30,7 @@ func main() {
 			authRoute.POST("/login", authController.Login)
 			authRoute.POST("/register", authController.Register)
 		}
+		api.GET("/profile", userController.Profile)
 	}
 	err := r.Run()
 	if err != nil {
