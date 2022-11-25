@@ -30,7 +30,10 @@ func main() {
 			authRoute.POST("/login", authController.Login)
 			authRoute.POST("/register", authController.Register)
 		}
-		api.GET("/profile", userController.Profile)
+		userRoute := api.Group("user")
+		{
+			userRoute.GET("/profile", userController.Profile)
+		}
 	}
 	err := r.Run()
 	if err != nil {

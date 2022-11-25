@@ -1,8 +1,6 @@
 package controller
 
 import (
-	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"golang_app/helper"
 	"golang_app/service"
@@ -26,13 +24,8 @@ func NewUserController(userService service.UserService, jwtService service.JWTSe
 }
 
 func (c *userController) Profile(ctx *gin.Context) {
-	authHeader := ctx.GetHeader("Authorization")
-	token, err := c.jwtService.ValidateToken(authHeader)
-	if err != nil {
-		panic(err.Error())
-	}
-	claims := token.Claims.(jwt.MapClaims)
-	id := fmt.Sprintf("%v", claims["user_id"])
+
+	id := c.jwtService.GetUserId(ctx)
 	user := c.userService.Profile(id)
 	res := helper.BuildResponse(true, "ok!", user)
 	ctx.JSON(http.StatusOK, res)
