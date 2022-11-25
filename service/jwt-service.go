@@ -3,6 +3,8 @@ package service
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"golang_app/helper"
+	"net/http"
 	"os"
 	"time"
 
@@ -62,18 +64,12 @@ func (j *jwtService) ValidateToken(token string) (*jwt.Token, error) {
 		return []byte(j.secretKey), nil
 	})
 }
-func (j *jwtService) ValidateToken2(token string) (*jwt.Token, error) {
-	return jwt.Parse(token, func(t_ *jwt.Token) (interface{}, error) {
-		if _, ok := t_.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("Unexpected sihning method %v", t_.Header["alg"])
-		}
-		return []byte(j.secretKey), nil
-	})
-}
+
 func (j *jwtService) GetUserId(ctx *gin.Context) string {
-	token, err := j.ValidateToken2(ctx.GetHeader("Authorization"))
+	token, err := j.ValidateToken(ctx.GetHeader("Authorization"))
 	if err != nil {
-		panic(err.Error())
+		res := helper.BuildErrorResponse("Unauthorized", err.Error(), helper.EmptyObj{})
+		ctx.AbortWithStatusJSON(http.StatusUnauthorized, res)
 	}
 	claims := token.Claims.(jwt.MapClaims)
 	id := fmt.Sprintf("%v", claims["user_id"])

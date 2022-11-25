@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"golang_app/config"
 	"golang_app/controller"
+	"golang_app/middleware"
 	"golang_app/repository"
 	"golang_app/service"
 	"gorm.io/gorm"
@@ -30,7 +31,7 @@ func main() {
 			authRoute.POST("/login", authController.Login)
 			authRoute.POST("/register", authController.Register)
 		}
-		userRoute := api.Group("user")
+		userRoute := api.Group("user").Use(middleware.AuthoizeJWT(jwtService))
 		{
 			userRoute.GET("/profile", userController.Profile)
 		}
