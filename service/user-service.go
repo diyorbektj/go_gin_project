@@ -2,9 +2,9 @@ package service
 
 import (
 	"github.com/mashingan/smapping"
-	"golang_app/dto"
-	"golang_app/entity"
-	"golang_app/repository"
+	"go_app/dto"
+	"go_app/entity"
+	"go_app/repository"
 	"log"
 )
 

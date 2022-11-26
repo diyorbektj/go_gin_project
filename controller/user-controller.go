@@ -2,8 +2,8 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"golang_app/helper"
-	"golang_app/service"
+	"go_app/helper"
+	"go_app/service"
 	"net/http"
 )
 

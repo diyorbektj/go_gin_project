@@ -4,12 +4,13 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"golang_app/config"
-	"golang_app/controller"
-	docs "golang_app/docs"
-	"golang_app/middleware"
-	"golang_app/repository"
-	"golang_app/service"
+	"go_app/config"
+	"go_app/controller"
+	_ "go_app/controller"
+	docs "go_app/docs"
+	"go_app/middleware"
+	"go_app/repository"
+	"go_app/service"
 	"gorm.io/gorm"
 )
 
@@ -25,6 +26,9 @@ var (
 
 // @title           Gin Book Service
 // @version         1.0
+// @description     A book management service API in Go using Gin framework.
+
+// @host      localhost:8080
 
 // @securityDefinitions.apikey BearerAuth
 // @in header
@@ -46,7 +50,7 @@ func main() {
 			userRoute.GET("/profile", userController.Profile)
 		}
 	}
-	err := r.Run(":8081")
+	err := r.Run(":8080")
 	if err != nil {
 		return
 	}

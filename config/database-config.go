@@ -3,7 +3,7 @@ package config
 import (
 	"fmt"
 	"github.com/joho/godotenv"
-	"golang_app/entity"
+	"go_app/entity"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 	"os"

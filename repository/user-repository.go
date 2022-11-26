@@ -1,7 +1,7 @@
 package repository
 
 import (
-	"golang_app/entity"
+	"go_app/entity"
 	"log"
 
 	"golang.org/x/crypto/bcrypt"

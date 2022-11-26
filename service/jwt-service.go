@@ -2,13 +2,12 @@ package service
 
 import (
 	"fmt"
+	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
-	"golang_app/helper"
+	"go_app/helper"
 	"net/http"
 	"os"
 	"time"
-
-	"github.com/dgrijalva/jwt-go"
 )
 
 type JWTService interface {

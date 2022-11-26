@@ -1,8 +1,63 @@
+host: localhost:8080
 info:
   contact: {}
+  description: A book management service API in Go using Gin framework.
   title: Gin Book Service
   version: "1.0"
-paths: {}
+paths:
+  /auth/login:
+    post:
+      description: Test test
+      parameters:
+      - description: Email
+        in: path
+        name: email
+        required: true
+        type: string
+      - description: Password
+        in: path
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      summary: TEST file
+      tags:
+      - Test
+  /testapi/get-struct-array-by-string/{some_id}:
+    get:
+      consumes:
+      - application/json
+      description: get struct array by ID
+      operationId: get-struct-array-by-string
+      parameters:
+      - description: Some ID
+        in: path
+        name: some_id
+        required: true
+        type: string
+      - description: Offset
+        in: query
+        name: offset
+        required: true
+        type: integer
+      - description: Offset
+        in: query
+        name: limit
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
 securityDefinitions:
   BearerAuth:
     in: header

@@ -2,10 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"golang_app/dto"
-	"golang_app/entity"
-	"golang_app/helper"
-	"golang_app/service"
+	"go_app/dto"
+	"go_app/entity"
+	"go_app/helper"
+	"go_app/service"
 	"net/http"
 	"strconv"
 )
@@ -26,6 +26,19 @@ func NewAuthController(authService service.AuthService, jwtService service.JWTSe
 	}
 }
 
+// Upload example
+
+// Login example
+//
+//	@Summary		TEST file
+//	@Description	Test test
+//	@Produce		json
+//	@Tags      Test
+//
+// @Param			email	path		string			true	"Email"
+// @Param			password path		string			true	"Password"
+// @Success		200		{string}	string			"ok"
+// @Router			/auth/login [post]
 func (c *authController) Login(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	errDTO := ctx.ShouldBind(&loginDTO)
@@ -67,4 +80,35 @@ func (c *authController) Register(ctx *gin.Context) {
 		response := helper.BuildResponse(true, "ok!", createdUser)
 		ctx.JSON(http.StatusCreated, response)
 	}
+}
+
+// GetStructArrayByString example
+//
+//	@Description	get struct array by ID
+//	@ID				get-struct-array-by-string
+//	@Accept			json
+//	@Produce		json
+//	@Param			some_id	path		string			true	"Some ID"
+//	@Param			offset	query		int				true	"Offset"
+//	@Param			limit	query		int				true	"Offset"
+//	@Success		200		{string}	string			"ok"
+//	@Router			/testapi/get-struct-array-by-string/{some_id} [get]
+func GetStructArrayByString(w http.ResponseWriter, r *http.Request) {
+	// write your code
+}
+func Upload(w http.ResponseWriter, r *http.Request) {
+	// write your code
+}
+
+// AnonymousField example
+//
+//	@Summary	use Anonymous field
+//	@Success		200		{string}	string			"ok"
+func AnonymousField() {
+
+}
+
+// Pet3 example
+type Pet3 struct {
+	ID int `json:"id"`
 }
