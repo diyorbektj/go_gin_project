@@ -26,7 +26,6 @@ var (
 
 // @title           Gin Book Service
 // @version         1.0
-// @description     A book management service API in Go using Gin framework.
 
 // @host      localhost:8080
 

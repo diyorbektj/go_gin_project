@@ -2,10 +2,10 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"golang_app/dto"
-	"golang_app/entity"
-	"golang_app/helper"
-	"golang_app/service"
+	"go_app/dto"
+	"go_app/entity"
+	"go_app/helper"
+	"go_app/service"
 	"net/http"
 	"strconv"
 )
@@ -26,6 +26,16 @@ func NewAuthController(authService service.AuthService, jwtService service.JWTSe
 	}
 }
 
+// Login example
+//
+//	@Summary		Login
+//	@Produce		json
+//	@Tags      Auth
+//
+// @Param			email	query		string			true	"Email"
+// @Param			password query		string			true	"Password"
+// @Success		200		{string}	string			"ok"
+// @Router			/auth/login [post]
 func (c *authController) Login(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	errDTO := ctx.ShouldBind(&loginDTO)
@@ -48,6 +58,19 @@ func (c *authController) Login(ctx *gin.Context) {
 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 }
 
+// Upload example
+
+// Register example
+//
+//	@Summary		Register
+//	@Produce		json
+//	@Tags      Auth
+//
+// @Param			name	query		string			true	"Name"
+// @Param			email	query		string			true	"Email"
+// @Param			password query		string			true	"Password"
+// @Success		200		{string}	string			"ok"
+// @Router			/auth/register [post]
 func (c *authController) Register(ctx *gin.Context) {
 	var registerDTO dto.RegisterDTO
 	errDTO := ctx.ShouldBind(&registerDTO)
