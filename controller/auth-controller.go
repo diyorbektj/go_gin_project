@@ -26,17 +26,14 @@ func NewAuthController(authService service.AuthService, jwtService service.JWTSe
 	}
 }
 
-// Upload example
-
 // Login example
 //
-//	@Summary		TEST file
-//	@Description	Test test
+//	@Summary		Login
 //	@Produce		json
-//	@Tags      Test
+//	@Tags      Auth
 //
-// @Param			email	path		string			true	"Email"
-// @Param			password path		string			true	"Password"
+// @Param			email	query		string			true	"Email"
+// @Param			password query		string			true	"Password"
 // @Success		200		{string}	string			"ok"
 // @Router			/auth/login [post]
 func (c *authController) Login(ctx *gin.Context) {
@@ -61,6 +58,19 @@ func (c *authController) Login(ctx *gin.Context) {
 	ctx.AbortWithStatusJSON(http.StatusUnauthorized, response)
 }
 
+// Upload example
+
+// Register example
+//
+//	@Summary		Register
+//	@Produce		json
+//	@Tags      Auth
+//
+// @Param			name	query		string			true	"Name"
+// @Param			email	query		string			true	"Email"
+// @Param			password query		string			true	"Password"
+// @Success		200		{string}	string			"ok"
+// @Router			/auth/register [post]
 func (c *authController) Register(ctx *gin.Context) {
 	var registerDTO dto.RegisterDTO
 	errDTO := ctx.ShouldBind(&registerDTO)
@@ -80,35 +90,4 @@ func (c *authController) Register(ctx *gin.Context) {
 		response := helper.BuildResponse(true, "ok!", createdUser)
 		ctx.JSON(http.StatusCreated, response)
 	}
-}
-
-// GetStructArrayByString example
-//
-//	@Description	get struct array by ID
-//	@ID				get-struct-array-by-string
-//	@Accept			json
-//	@Produce		json
-//	@Param			some_id	path		string			true	"Some ID"
-//	@Param			offset	query		int				true	"Offset"
-//	@Param			limit	query		int				true	"Offset"
-//	@Success		200		{string}	string			"ok"
-//	@Router			/testapi/get-struct-array-by-string/{some_id} [get]
-func GetStructArrayByString(w http.ResponseWriter, r *http.Request) {
-	// write your code
-}
-func Upload(w http.ResponseWriter, r *http.Request) {
-	// write your code
-}
-
-// AnonymousField example
-//
-//	@Summary	use Anonymous field
-//	@Success		200		{string}	string			"ok"
-func AnonymousField() {
-
-}
-
-// Pet3 example
-type Pet3 struct {
-	ID int `json:"id"`
 }

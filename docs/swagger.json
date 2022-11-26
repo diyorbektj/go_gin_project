@@ -1,7 +1,6 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "A book management service API in Go using Gin framework.",
         "title": "Gin Book Service",
         "contact": {},
         "version": "1.0"
@@ -10,27 +9,26 @@
     "paths": {
         "/auth/login": {
             "post": {
-                "description": "Test test",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Test"
+                    "Auth"
                 ],
-                "summary": "TEST file",
+                "summary": "Login",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Email",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -44,35 +42,34 @@
                 }
             }
         },
-        "/testapi/get-struct-array-by-string/{some_id}": {
-            "get": {
-                "description": "get struct array by ID",
-                "consumes": [
-                    "application/json"
-                ],
+        "/auth/register": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
-                "operationId": "get-struct-array-by-string",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Some ID",
-                        "name": "some_id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
+                        "description": "Name",
+                        "name": "name",
                         "in": "query",
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "limit",
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "password",
                         "in": "query",
                         "required": true
                     }

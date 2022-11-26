@@ -18,27 +18,26 @@ const docTemplate = `{
     "paths": {
         "/auth/login": {
             "post": {
-                "description": "Test test",
                 "produces": [
                     "application/json"
                 ],
                 "tags": [
-                    "Test"
+                    "Auth"
                 ],
-                "summary": "TEST file",
+                "summary": "Login",
                 "parameters": [
                     {
                         "type": "string",
                         "description": "Email",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
@@ -52,35 +51,34 @@ const docTemplate = `{
                 }
             }
         },
-        "/testapi/get-struct-array-by-string/{some_id}": {
-            "get": {
-                "description": "get struct array by ID",
-                "consumes": [
-                    "application/json"
-                ],
+        "/auth/register": {
+            "post": {
                 "produces": [
                     "application/json"
                 ],
-                "operationId": "get-struct-array-by-string",
+                "tags": [
+                    "Auth"
+                ],
+                "summary": "Register",
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "Some ID",
-                        "name": "some_id",
-                        "in": "path",
-                        "required": true
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
+                        "description": "Name",
+                        "name": "name",
                         "in": "query",
                         "required": true
                     },
                     {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "limit",
+                        "type": "string",
+                        "description": "Email",
+                        "name": "email",
+                        "in": "query",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Password",
+                        "name": "password",
                         "in": "query",
                         "required": true
                     }
@@ -112,7 +110,7 @@ var SwaggerInfo = &swag.Spec{
 	BasePath:         "",
 	Schemes:          []string{},
 	Title:            "Gin Book Service",
-	Description:      "A book management service API in Go using Gin framework.",
+	Description:      "",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 }
