@@ -23,7 +23,7 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "Test"
+                    "Auth"
                 ],
                 "summary": "TEST file",
                 "parameters": [
@@ -31,14 +31,14 @@ const docTemplate = `{
                         "type": "string",
                         "description": "Email",
                         "name": "email",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
                         "description": "Password",
                         "name": "password",
-                        "in": "path",
+                        "in": "query",
                         "required": true
                     }
                 ],
