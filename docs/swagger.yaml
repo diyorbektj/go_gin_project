@@ -55,6 +55,20 @@ paths:
       summary: Register
       tags:
       - Auth
+  /user/profile:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - BearerAuth: []
+      summary: Profile
+      tags:
+      - User
 securityDefinitions:
   BearerAuth:
     in: header
