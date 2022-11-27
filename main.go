@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -12,6 +13,7 @@ import (
 	"go_app/repository"
 	"go_app/service"
 	"gorm.io/gorm"
+	"time"
 )
 
 var (
@@ -27,8 +29,6 @@ var (
 // @title           Gin Book Service
 // @version         1.0
 
-// @host      localhost:8080
-
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
@@ -36,6 +36,14 @@ func main() {
 	defer config.CloseDatabaseConnection(db)
 	r := gin.Default()
 	docs.SwaggerInfo.BasePath = "/api/"
+	r.Use(cors.New(cors.Config{
+		AllowOrigins:     []string{"*"},
+		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
+		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
+		ExposeHeaders:    []string{"Content-Length"},
+		AllowCredentials: true,
+		MaxAge:           12 * time.Hour,
+	}))
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	api := r.Group("api")
 	{
@@ -49,7 +57,7 @@ func main() {
 			userRoute.GET("/profile", userController.Profile)
 		}
 	}
-	err := r.Run(":8080")
+	err := r.Run(":5500")
 	if err != nil {
 		return
 	}
