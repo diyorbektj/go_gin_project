@@ -36,6 +36,7 @@ func NewAuthController(authService service.AuthService, jwtService service.JWTSe
 // @Param			password query		string			true	"Password"
 // @Success		200		{string}	string			"ok"
 // @Router			/auth/login [post]
+
 func (c *authController) Login(ctx *gin.Context) {
 	var loginDTO dto.LoginDTO
 	errDTO := ctx.ShouldBind(&loginDTO)
