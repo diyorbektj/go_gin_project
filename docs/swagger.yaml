@@ -1,21 +1,18 @@
-host: localhost:8080
 info:
   contact: {}
-  description: A book management service API in Go using Gin framework.
   title: Gin Book Service
   version: "1.0"
 paths:
   /auth/login:
     post:
-      description: Test test
       parameters:
       - description: Email
-        in: path
+        in: query
         name: email
         required: true
         type: string
       - description: Password
-        in: path
+        in: query
         name: password
         required: true
         type: string
@@ -26,31 +23,27 @@ paths:
           description: ok
           schema:
             type: string
-      summary: TEST file
+      summary: Login
       tags:
-      - Test
-  /testapi/get-struct-array-by-string/{some_id}:
-    get:
-      consumes:
-      - application/json
-      description: get struct array by ID
-      operationId: get-struct-array-by-string
+      - Auth
+  /auth/register:
+    post:
       parameters:
-      - description: Some ID
-        in: path
-        name: some_id
+      - description: Name
+        in: query
+        name: name
         required: true
         type: string
-      - description: Offset
+      - description: Email
         in: query
-        name: offset
+        name: email
         required: true
-        type: integer
-      - description: Offset
+        type: string
+      - description: Password
         in: query
-        name: limit
+        name: password
         required: true
-        type: integer
+        type: string
       produces:
       - application/json
       responses:
@@ -58,6 +51,23 @@ paths:
           description: ok
           schema:
             type: string
+      summary: Register
+      tags:
+      - Auth
+  /user/profile:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: ok
+          schema:
+            type: string
+      security:
+      - ApiKeyAuth: []
+      summary: Profile
+      tags:
+      - User
 securityDefinitions:
   BearerAuth:
     in: header
