@@ -1,7 +1,6 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
@@ -13,7 +12,6 @@ import (
 	"go_app/repository"
 	"go_app/service"
 	"gorm.io/gorm"
-	"time"
 )
 
 var (
@@ -24,6 +22,7 @@ var (
 	authService    service.AuthService       = service.NewAuthService(userRepository)
 	authController controller.AuthController = controller.NewAuthController(authService, jwtService)
 	userController controller.UserController = controller.NewUserController(userService, jwtService)
+	homeController controller.HomeController = controller.NewHomeController()
 )
 
 // @title           Gin Book Service
@@ -32,18 +31,13 @@ var (
 // @securityDefinitions.apikey BearerAuth
 // @in header
 // @name Authorization
+
 func main() {
 	defer config.CloseDatabaseConnection(db)
 	r := gin.Default()
 	docs.SwaggerInfo.BasePath = "/api/"
-	r.Use(cors.New(cors.Config{
-		AllowOrigins:     []string{"*"},
-		AllowMethods:     []string{"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD"},
-		AllowHeaders:     []string{"Origin", "Content-Length", "Content-Type", "Authorization"},
-		ExposeHeaders:    []string{"Content-Length"},
-		AllowCredentials: true,
-		MaxAge:           12 * time.Hour,
-	}))
+	r.Use(middleware.ApiCors())
+	r.GET("/", homeController.Home)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	api := r.Group("api")
 	{

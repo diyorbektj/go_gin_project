@@ -87,7 +87,7 @@
             "get": {
                 "security": [
                     {
-                        "BearerAuth": []
+                        "ApiKeyAuth": []
                     }
                 ],
                 "produces": [

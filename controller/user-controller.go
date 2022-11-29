@@ -31,7 +31,7 @@ func NewUserController(userService service.UserService, jwtService service.JWTSe
 //
 // @Success		200		{string}	string			"ok"
 // @Router			/user/profile [get]
-// @Security BearerAuth
+// @Security ApiKeyAuth
 func (c *userController) Profile(ctx *gin.Context) {
 
 	id := c.jwtService.GetUserId(ctx)

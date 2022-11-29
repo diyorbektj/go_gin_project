@@ -64,7 +64,7 @@ paths:
           schema:
             type: string
       security:
-      - BearerAuth: []
+      - ApiKeyAuth: []
       summary: Profile
       tags:
       - User
