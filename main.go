@@ -4,6 +4,7 @@ import (
 	"go_app/config"
 	"go_app/router"
 	"gorm.io/gorm"
+	"github.com/gin-gonic/gin"
 )
 
 var (
@@ -18,6 +19,7 @@ var (
 // @name Authorization
 
 func main() {
+	gin.SetMode(gin.ReleaseMode)
 	defer config.CloseDatabaseConnection(db)
 	r := router.SetupRouter()
 	err := r.Run(":5500")
